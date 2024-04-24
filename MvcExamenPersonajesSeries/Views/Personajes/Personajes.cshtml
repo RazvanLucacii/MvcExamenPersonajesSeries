@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MvcExamenPersonajesSeries.Models.Personaje>
+
+@{
+    ViewData["Title"] = "Personajes";
+}
+
+@{
+    List<string> series = ViewData["SERIES"] as List<string>;
+}
+
+<h1>Personajes</h1>
+
+<p>
+    <a asp-action="Create">Create Personaje</a>
+</p>
+
+<hr />
+
+<form method="post">
+    <label>Seleccione una serie</label>
+    <select name="serie" class="form-control">
+        @foreach (string serie in series)
+        {
+            <option value="@serie">@serie</option>
+        }
+    </select>
+    <button class="btn btn-outline-dark">
+        Mostrar Personajes
+    </button>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPersonaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPersonaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Imagen)" style="width:200px; height:200px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serie)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.IdPersonaje}) |
+                @Html.ActionLink("Details", "Details", new { idpersonaje = item.IdPersonaje}) |
+                @Html.ActionLink("Delete", "Delete", new { idpersonaje = item.IdPersonaje})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
